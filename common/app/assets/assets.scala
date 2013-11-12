@@ -70,4 +70,15 @@ class Assets(base: String, assetMap: String = "assets/assets.map") extends Loggi
       case _ => "stylesheets/old-ie.head.default.css"
     }
   }
+
+  object javascripts {
+    def inline(script: String): String = {
+      val path = script match {
+        case "imager" => "vendor/imager.js"
+      }
+      val url = Play.classloader(Play.current).getResource(s"javascripts/$path")
+
+      IOUtils.toString(url)
+    }
+  }
 }
