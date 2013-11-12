@@ -5,9 +5,8 @@ define([
     'qwery',
     'modules/detect',
     'modules/relativedates',
-    'modules/facia/images',
     'modules/discussion/commentCount'
-], function (common, bonzo, bean, qwery, detect, relativeDates, faciaImages, commentCount) {
+], function (common, bonzo, bean, qwery, detect, relativeDates, commentCount) {
 
     return function(collection) {
 
@@ -59,9 +58,6 @@ define([
                                        .append(items)[0];
                 relativeDates.init(wrappedItems);
                 commentCount.init(wrappedItems);
-                if (upgradeImages === true) {
-                    faciaImages.upgrade(wrappedItems);
-                }
                 $collection.append(items);
             },
             _renderToggle = function($collection, extraItems) {

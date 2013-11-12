@@ -8,6 +8,8 @@
     <script src="@Static("javascripts/vendor/html5shiv.js")"></script>
 <![endif]-->
 
+<script>@Html(Static.javascripts.inline("imager"))</script>
+
 <script id="gu">
     var guardian = {
         isModernBrowser: (
@@ -118,10 +120,21 @@
 
         @* we want this to happen ASAP to avoid FOUC *@
         document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/g, '') + ' js-on ';
-        var connectionClass = 'connection--' + (isConnectionLow() ? '' : 'not-') + 'low';
+        var connectionClass = 'connection--' + (isConnectionLow() ? 'not-' : 'not-') + 'low';
         document.documentElement.className += connectionClass;
 
-        @Html(Static.javascripts.inline("imager"))
+        if (!isConnectionLow) {
+            var images = common.toArray(document.getElementsByClassName('item__image-container')).filter(function(img) {
+                    return bonzo(img).css('display') !== 'none';
+                }),
+                options = {
+                    availableWidths: [ 140, 220, 300, 460, 620, 700 ],
+                    strategy: 'container',
+                    replacementDelay: 0
+                };
+            Imager.init(images, options);
+        }
+        
 
         guardian.platformsGettingHintedFonts = /Windows/;
         guardian.platformsNotGettingHintedFonts = /W(indows Phone|PDesktop)/; // exceptions

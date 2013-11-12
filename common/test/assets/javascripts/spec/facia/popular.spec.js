@@ -3,13 +3,6 @@
  *
  * TODO: need to clean up after
  */
-var imagesUpgradeStub = sinon.stub();
-define('modules/facia/images', [], function(){
-    return {
-        upgrade: imagesUpgradeStub
-    }
-});
-
 define(['modules/facia/popular', 'bonzo', 'common', 'bean', 'helpers/fixtures', 'ajax'], function(popular, bonzo, common, bean, fixtures, ajax) {
 
     describe('Popular', function() {
@@ -100,17 +93,6 @@ define(['modules/facia/popular', 'bonzo', 'common', 'bean', 'helpers/fixtures', 
             waitsFor(function() {
                 return common.$g('.container--popular').length;
             }, 'popular container to be rendered', 100);
-        });
-
-        it('should upgrade images', function() {
-            popular.render({});
-
-            waitsFor(function() {
-                return common.$g('.container--popular').length;
-            }, 'popular container to be rendered', 100);
-            runs(function() {
-                expect(imagesUpgradeStub).toHaveBeenCalledWith(document.querySelector('.container--popular .collection'));
-            });
         });
 
         it('dates should be relativised', function() {

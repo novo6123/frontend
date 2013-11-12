@@ -263,6 +263,14 @@ module.exports = function (grunt) {
                     dest: 'common/conf/assets'
                 }]
             },
+            inlineJs: {
+                files: [{
+                    expand: true,
+                    cwd: 'static/target/javascripts',
+                    src: ['**/imager*.js'],
+                    dest: 'common/conf/assets'
+                }]
+            },
             /**
              * NOTE: not using this as doesn't preserve file permissions (using shell:copyHooks instead)
              * Waiting for Grunt 0.4.3 - https://github.com/gruntjs/grunt/issues/615
@@ -616,7 +624,7 @@ module.exports = function (grunt) {
     grunt.registerTask('compile', function() {
         grunt.task.run(['clean:staticTarget', 'compile:images', 'compile:css', 'compile:js', 'compile:fonts', 'compile:flash']);
         if (!isDev) {
-            grunt.task.run(['clean:assets', 'copy:headCss', 'hash']);
+            grunt.task.run(['clean:assets', 'copy:headCss', 'copy:inlineJs', 'hash']);
         }
     });
 

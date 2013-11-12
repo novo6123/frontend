@@ -76,7 +76,7 @@ class Assets(base: String, assetMap: String = "assets/assets.map") extends Loggi
       val path = script match {
         case "imager" => "vendor/imager.js"
       }
-      val url = Play.classloader(Play.current).getResource(s"javascripts/$path")
+      val url = Play.classloader(Play.current).getResource(s"assets/$path")
 
       IOUtils.toString(url)
     }

@@ -36,7 +36,6 @@ define([
     "modules/lightbox-gallery",
     "modules/swipe/ears",
     "modules/swipe/bar",
-    "modules/facia/images",
     "modules/onward/history",
     "modules/onward/sequence"
 ], function (
@@ -76,7 +75,6 @@ define([
     LightboxGallery,
     ears,
     SwipeBar,
-    faciaImages,
     History,
     sequence
 ) {
@@ -84,7 +82,6 @@ define([
     var modules = {
 
         upgradeImages: function () {
-            faciaImages.upgrade();
 
             var images = new Images();
             common.mediator.on('page:common:ready', function(config, context) {
