@@ -41,7 +41,7 @@ define([
         var $trackedAdSlots = common.$g('.ad-slot');
 
         setInterval(function() {
-            var viewport = detect.getLayoutMode();
+            var viewport = detect.getBreakpoint();
 
             $trackedAdSlots.each(function(adEl) {
                 var adId = adEl.getAttribute('data-inview-name') || adEl.getAttribute('data-' + viewport) || '';
@@ -139,7 +139,7 @@ define([
                 test: function(context, isBoth) {
                     variantName = 'Adhesive';
                     guardian.config.page.oasSiteIdHost = 'www.theguardian-alpha2.com';
-                    var viewport = detect.getLayoutMode(),
+                    var viewport = detect.getBreakpoint(),
                         inviewName,
                         s;
                     if(viewport === 'mobile' || viewport === 'tablet' && detect.getOrientation() === 'portrait') {

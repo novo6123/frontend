@@ -1,5 +1,5 @@
-define(['modules/ui/images', 'helpers/fixtures'], function(Images, fixtures) {
-    
+define(['modules/ui/images', 'helpers/fixtures', 'bonzo'], function(Images, fixtures, bonzo) {
+
     describe("Upgrade Images", function() {
 
         var fastConnection = { timing: { requestStart: 1, responseEnd: 10 } }
@@ -20,13 +20,13 @@ define(['modules/ui/images', 'helpers/fixtures'], function(Images, fixtures) {
             document.body.className = '';
             fixtures.render(conf);
         })
-        
+
         it("should not load high res images on low bandwidths", function(){
             var i = new Images({ connection: slowConnection }).upgrade(document.getElementById('slow-connection'));
             var img = document.getElementById('slow');
             expect(img.src).toContain('original/image/jpg');
         });
-        
+
         it("should not load high res images on low resolution screens", function(){
             var i = new Images({ viewportWidth: 320 }).upgrade(document.getElementById('alwaysLow'));
             var img = document.getElementById('alwaysLowImg');
@@ -40,17 +40,21 @@ define(['modules/ui/images', 'helpers/fixtures'], function(Images, fixtures) {
         });
 
         it("should swap a low resolution image for a full resolution", function(){
-            var i = new Images({ viewportWidth: 2000 }).upgrade(document.getElementById('upgrade'));
+            var $style = bonzo(bonzo.create('<style></style>'))
+                    .html('body:after { content: "wide"; }')
+                    .appendTo('head');
+                i = new Images().upgrade(document.getElementById('upgrade'));
             var img = document.getElementById('upgradeImages');
             expect(img.src).toContain('http://placekitten.com/1/1');
             expect(img.className).toContain('image-high');
+            $style.remove();
         });
-        
+
         it("should force upgrade on small layouts when data-force-upgrade attribute is present", function() {
             var i = new Images({ viewportWidth: 100 }).upgrade(document.getElementById('force-upgrade'));
             expect(document.getElementById('upgradeImagesForce').src).toContain('http://placekitten.com/3/3');
         })
-        
+
         it("should swap a low resolution image for an SVG", function(){
             new Images().upgrade(document.getElementById('upgrade-svg'));
             expect(document.getElementsByTagName('body')[0].className).toContain('svg');

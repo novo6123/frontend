@@ -9,10 +9,10 @@ define([
 ) {
 
     function Images(options) {
-    
+
         var opts = options || {},
             connectionSpeed = detect.getConnectionSpeed(opts.connection),
-            layoutMode = detect.getLayoutMode(opts.viewportWidth),
+            breakpoint = detect.getBreakpoint(),
             self = this;
 
         // View
@@ -36,7 +36,7 @@ define([
                     var forceUpgrade = image.attr('data-force-upgrade');
 
                     if (fullWidth && fullWidth >= thumbWidth && fullsrc) {
-                        if (forceUpgrade || layoutMode === 'desktop' || layoutMode === 'extended') {
+                        if (forceUpgrade || breakpoint === 'desktop' || breakpoint === 'wide') {
                             image.attr('src', fullsrc);
                             image.addClass('image-high');
                             return;
@@ -50,7 +50,7 @@ define([
         };
 
         // Model
-        
+
         this.upgrade = function (context) {
             if (connectionSpeed !== 'low') {
                 self.view.upgrade(context);
@@ -58,7 +58,7 @@ define([
             }
         };
     }
-    
+
     return Images;
 
 });
