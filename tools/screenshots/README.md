@@ -1,7 +1,7 @@
 Set-up
 ------
 
-    $ npm install
+    $ npm install -g grunt-cli
 
 Running
 -------
@@ -10,7 +10,7 @@ Running
 
 Running against a particular env
 
-    $ grunt snap --dev 
+    $ grunt snap --dev
 
 or
 
@@ -20,8 +20,8 @@ to run on prod
 
 
 To upload to S3 export:
-	
+
 	AWS_ACCESS_KEY_ID=XXXXXX
 	AWS_SECRET_ACCESS_KEY=XXXXXXX
-	
+
 
